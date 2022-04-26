@@ -1,0 +1,99 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row d-flex justify-content-around">
+  <div class="col-md-8">
+    <% if (!cart.products.length) { %>
+    <ul class="list-group">
+      <li
+        class="list-group-item d-flex flex-column justify-content-center align-items-center bg-transparent border-0 mt-5"
+      >
+        There are no items in this cart
+        <a href="/products" class="btn btn-dark mt-3">Continue Shopping</a>
+      </li>
+    </ul>
+    <% } %>
+    <ul class="list-group">
+      <% for (let product of cart.products) {%>
+
+      <li
+        class="list-group-item d-flex flex-column flex-sm-row justify-content-between align-items-center"
+      >
+        <a href="/products/<%= product._id %>">
+          <div id="product-info" class="d-flex me-auto align-items-center">
+            <div id="product-image">
+              <img
+                src="<%= product.image.url %>"
+                width="100"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <div
+              id="product-description"
+              class="d-flex justify-content-center align-items-center"
+            >
+              <div class="mx-3 mt-3">
+                <h6><%= product.name %></h6>
+                <p class="text-muted" t>Variation: Small</p>
+                <h5>
+                  &#8369;
+                  <span class="product-price"> <%= product.price %></span>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="d-flex">
+          <div id="product-quantity" class="ms-auto d-flex">
+            <form action="/cart/<%= product._id %>/decrease" method="POST">
+              <button class="btn btn-sm btn-secondary decrease">-</button>
+            </form>
+            <input
+              class="quantity ps-3"
+              type="number"
+              name="quantity"
+              disabled
+              value="<%= product.quantity %>"
+            />
+            <form action="/cart/<%= product._id %>/increase" method="POST">
+              <button class="btn btn-sm btn-primary increase">+</button>
+            </form>
+          </div>
+
+          <div id="delete-product">
+            <form
+              action="/cart/<%= product._id %>/delete/?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-sm btn-danger ms-5">Remove</button>
+            </form>
+          </div>
+        </div>
+      </li>
+
+      <% } %>
+    </ul>
+  </div>
+  <div class="col-md-4 my-5 my-md-0">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="cart-text text-muted">Location</h6>
+        <p class="text-muted ms-2">
+          <i class="fas fa-map-marker-alt"></i> Metro Manila~Pasig, Pasig City
+        </p>
+        <hr />
+        <h5 class="card-title">Order Summary</h5>
+        <p class="cart-text d-flex justify-content-between">
+          Subtotal <span class="fw-bold" id="subtotal"></span>
+        </p>
+        <p class="cart-text d-flex justify-content-between">
+          Shipping fee <span class="fw-bold">&#8369;0</span>
+        </p>
+        <p class="cart-text d-flex justify-content-between align-items-center">
+          Total <span class="fw-bold" id="total"></span>
+        </p>
+        <button class="btn btn-dark w-100">PROCEED TO CHECKOUT</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <div class="col-md-6 mb-4 mb-md-0">
+    <img
+      src="<%= product.showImage %>"
+      class="img-fluid img-thumbnail"
+      alt=""
+    />
+  </div>
+  <div
+    class="col-md-6 d-flex flex-column justify-content-around text-center text-md-start"
+  >
+    <h2><%= product.name %></h2>
+    <h3 class="fw-bold">
+      &#8369;<%= product.price %>
+      <span class="ms-3"> - Free shipping only for today!</span>
+    </h3>
+    <p class="lead">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam,
+      assumenda molestiae? Odit sapiente est libero, deserunt recusandae labore
+      cupiditate quos fuga porro sunt rem, enim saepe eum deleniti eius
+      incidunt!
+    </p>
+    <a href="/cart/<%= product._id %>" class="btn btn-dark btn-lg w-100"
+      >Add to Cart</a
+    >
+  </div>
+</div>
